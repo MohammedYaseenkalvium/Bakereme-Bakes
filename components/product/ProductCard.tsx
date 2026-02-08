@@ -1,7 +1,12 @@
 import Image from "next/image";
 import { Product } from "../../features/products/product.data";
 
-export default function ProductCard({ product }: { product: Product }) {
+interface ProductCardProps {
+    product: Product;
+    onAdd: (product: Product) => void;
+}
+
+export default function ProductCard({ product, onAdd }: ProductCardProps) {
     return (
         <div className="rounded-2xl bg-white shadow-sm hover:shadow-md transition">
             <div className="relative h-48 w-full overflow-hidden rounded-t-2xl">
@@ -20,9 +25,17 @@ export default function ProductCard({ product }: { product: Product }) {
                 <p className="mt-1 text-sm text-amber-700">
                     {product.description}
                 </p>
-                <p className="mt-3 font-medium text-amber-900">
-                    AED {product.price}
-                </p>
+                <div className="mt-4 flex items-center justify-between">
+                    <span className="font-medium text-amber-900">
+                        ₹{product.price}
+                    </span>
+                    <button
+                        onClick={() => onAdd(product)}
+                        className="rounded-lg bg-amber-800 px-4 py-2 text-sm text-white hover:bg-amber-900 transition"
+                    >
+                        Add
+                    </button>
+                </div>
             </div>
         </div>
     );
