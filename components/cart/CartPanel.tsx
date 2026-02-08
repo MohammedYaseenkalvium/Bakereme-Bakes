@@ -6,11 +6,35 @@ interface CartPanelProps {
     items: CartItem[];
     onUpdateQuantity: (id: string, quantity: number) => void;
     onRemove: (id: string) => void;
+    onClearCart: () => void;
 }
 
-export default function CartPanel({ open, onClose, items, onUpdateQuantity, onRemove }: CartPanelProps) {
+export default function CartPanel({ open, onClose, items, onUpdateQuantity, onRemove, onClearCart }: CartPanelProps) {
     if (!open) return null;
     const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const handlePlaceOrder = () => {
+    const message = items
+        .map(
+            item =>
+                `${item.name} x ${item.quantity} = AED ${item.price * item.quantity}`
+        )
+        .join('%0A');
+
+    const totalLine = `%0A%0ATotal: AED ${total}`;
+    const whatsappMessage =
+        `Hello! I would like to place an order:%0A%0A${message}${totalLine}`;
+
+    const phoneNumber = '+917736762310'; // replace with real number
+
+    window.open(
+        `https://wa.me/${phoneNumber}?text=${whatsappMessage}`,
+        '_blank'
+    );
+
+    onClearCart();   // clear cart
+    onClose();   // close panel
+};
+
     return (
         <>
             {/* Backdrop */}
@@ -51,16 +75,34 @@ export default function CartPanel({ open, onClose, items, onUpdateQuantity, onRe
                                                 {item.name}
                                             </p>
                                             <p className="text-sm text-amber-700">
-                                                ₹{item.price} × {item.quantity}
+                                                AED{item.price} × {item.quantity}
                                             </p>
                                         </div>
 
-                                        <button
-                                            onClick={() => onRemove(item.id)}
-                                            className="text-sm text-red-600"
-                                        >
-                                            Remove
-                                        </button>
+                                        <div className="flex items-center gap-4">
+                                            <div className="flex items-center gap-2 rounded-lg bg-amber-50 px-2 py-1">
+                                                <button
+                                                    onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                                                    className="w-8 h-8 rounded-md hover:bg-amber-100 text-amber-900 transition flex items-center justify-center font-bold"
+                                                >
+                                                    -
+                                                </button>
+                                                <span className="w-4 text-center text-amber-900 font-medium">{item.quantity}</span>
+                                                <button
+                                                    onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                                                    className="w-8 h-8 rounded-md hover:bg-amber-100 text-amber-900 transition flex items-center justify-center font-bold"
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+
+                                            <button
+                                                onClick={() => onRemove(item.id)}
+                                                className="text-sm text-red-600 hover:text-red-700 font-medium"
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>
@@ -72,10 +114,11 @@ export default function CartPanel({ open, onClose, items, onUpdateQuantity, onRe
                                 </div>
 
                                 <button
-                                    className="mt-4 w-full rounded-xl bg-amber-800 py-3 text-white hover:bg-amber-900 transition-colors"
-                                >
-                                    Place Order (Pay Offline)
-                                </button>
+    onClick={handlePlaceOrder}
+    className="mt-4 w-full rounded-xl bg-amber-800 py-3 text-white hover:bg-amber-900 transition-colors"
+>
+    Place Order (WhatsApp)
+</button>
                             </div>
                         </>
                     )}
