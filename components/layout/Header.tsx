@@ -8,8 +8,8 @@ export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <header className="border-b border-brown-500 bg-white/70 backdrop-blur">
-            <div className="mx-auto flex h-16 items-center justify-between px-4">
+        <header className="sticky top-0 z-40 border-b border-amber-200/30 bg-white/70 backdrop-blur-xl">
+            <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div>
                     <Link href="/" className="flex items-center gap-2">
                         <Image
@@ -17,61 +17,34 @@ export default function Header() {
                             alt="Bakreme Bakes"
                             width={32}
                             height={32}
-                            className="h-8 w-8"
+                            className="h-10 w-10"
                         />
-                        <span className="text-lg font-semibold text-amber-800">Bakreme Bakes</span>
+                        <span className="text-xl font-semibold tracking-tight text-amber-800">Bakreme Bakes</span>
                     </Link>
                 </div>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-amber-800">
-                    <Link href="/" className="hover:text-amber-600 transition-colors">Home</Link>
-                    <Link href="/menu" className="hover:text-amber-600 transition-colors">Menu</Link>
-                    <Link href="/about" className="hover:text-amber-600 transition-colors">About</Link>
-                    <Link href="/contact" className="hover:text-amber-600 transition-colors">Contact</Link>
+                <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-amber-900">
+                    <Link href="/" className="transition-colors hover:text-orange-600">Home</Link>
+                    <Link href="/menu" className="transition-colors hover:text-orange-600">Menu</Link>
+                    <Link href="/about" className="transition-colors hover:text-orange-600">About</Link>
+                    <Link href="/contact" className="transition-colors hover:text-orange-600">Contact</Link>
                 </nav>
 
                 {/* Mobile menu button */}
                 <button
-                    className="md:hidden text-amber-800"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="md:hidden text-amber-900"
                     aria-label="Toggle menu"
+                    aria-expanded={isMenuOpen}
                 >
-                    {isMenuOpen ? (
-                        <svg
-                            className="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    ) : (
-                        <svg
-                            className="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M4 6h16M4 12h16M4 18h16"
-                            />
-                        </svg>
-                    )}
+                    ☰
                 </button>
             </div>
 
             {/* Mobile Navigation Menu */}
             {isMenuOpen && (
-                <nav className="md:hidden border-t border-brown-500 bg-white/70 backdrop-blur">
+                <nav className="md:hidden border-t border-amber-200 bg-white/70 backdrop-blur">
                     <div className="flex flex-col gap-4 p-4">
                         <Link
                             href="/"
