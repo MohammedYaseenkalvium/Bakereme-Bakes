@@ -60,7 +60,7 @@ export default function CartPanel({ open, onClose, items, onUpdateQuantity, onRe
 
                     {items.length === 0 ? (
                         <p className="mt-6 text-amber-700">
-                            Your cart is empty.
+                            Your cart is empty — add something delicious 🥐.
                         </p>
                     ) : (
                         <>
@@ -108,7 +108,7 @@ export default function CartPanel({ open, onClose, items, onUpdateQuantity, onRe
                             </ul>
 
                             <div className="mt-6 border-t pt-4">
-                                <div className="flex items-center justify-between font-medium text-amber-900">
+                                <div className="flex items-center justify-between text-lg font-semibold text-amber-900">
                                     <span>Total</span>
                                     <span>₹{total}</span>
                                 </div>

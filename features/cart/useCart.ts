@@ -6,15 +6,15 @@ import { CartItem } from './cart.types';
 export function useCart() {
     const [items, setItems] = useState<CartItem[]>([]);
 
-    const addItem = (item: CartItem) => {
+    const addItem = (product: any) => {
         setItems((prev) => {
-            const existingItem = prev.find((i) => i.id === item.id);
+            const existingItem = prev.find((i) => i.id === product.id);
             if (existingItem) {
                 return prev.map((i) =>
-                    i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+                    i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
                 );
             }
-            return [...prev, item];
+            return [...prev, { ...product, quantity: 1 }];
         });
     };
 

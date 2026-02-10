@@ -8,8 +8,8 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onAdd }: ProductCardProps) {
     return (
-        <div className="rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-            <div className="relative h-48 w-full overflow-hidden rounded-t-2xl">
+        <div className="rounded-2xl bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl">
                 <Image
                     src={product.image}
                     alt={product.name}
