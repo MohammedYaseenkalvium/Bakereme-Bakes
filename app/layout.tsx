@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bakereme Bakes",
-  description: "Freshly baked happiness, every day",
+  title: "Bakereme Bakes | Freshly Baked Happiness",
+  description: "Order fresh bakery items and pay offline via WhatsApp",
 };
 
 export default function RootLayout({
